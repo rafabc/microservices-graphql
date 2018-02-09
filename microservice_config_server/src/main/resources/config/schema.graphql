@@ -1,0 +1,62 @@
+schema {
+    query: QueryType
+    mutation: MutationType
+}
+
+type QueryType {
+    character(firstName: String): Character
+    characters: [Character]
+    episodes: [Episode]
+    search(searchFor: String): [Everything]
+}
+
+
+type MutationType {
+    addCharacter(character: CharacterInput): MutationResult
+}
+
+input CharacterInput {
+    firstName: String
+    lastName: String
+    family: Boolean
+}
+
+type MutationResult {
+   success: Boolean
+}
+
+
+type Character {
+    id: ID!
+    firstName: String
+    lastName: String
+    family: Boolean
+    episodes: [Episode]
+}
+
+type Episode {
+    id: ID!
+    name: String
+    season: Season
+    number: Int
+    numberOverall: Int
+    characters: [Character]
+}
+
+union Everything = Character | Episode
+
+# Simpson seasons
+enum Season {
+    # the beginning
+    Season1,
+    Season2,
+    Season3,
+    Season4,
+    # Another one
+    Season5,
+    Season6,
+    Season7,
+    Season8,
+    # Not really the last one :-)
+    Season9
+}
